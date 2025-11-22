@@ -3,21 +3,19 @@
 
 generator client {
   provider = "prisma-client-js"
-  // CRITICAL FIX: Changing output path to force Next.js to find the generated client
-  output   = "./node_modules/@prisma/client" 
+  // Remove the output specification - use default location
 }
 
 datasource db {
   provider = "postgresql"
-  // CRITICAL FIX: The 'url' property must be removed from schema.prisma in Prisma 7.0+
-  // The connection string will now be passed directly via the driver adapter in lib/prisma.ts.
+  // No URL here in Prisma 7 - it's configured in prisma.config.ts
 }
 
 model Link {
-  id                Int      @id @default(autoincrement())
-  short_code        String   @unique
+  id                Int       @id @default(autoincrement())
+  short_code        String    @unique
   target_url        String
-  total_clicks      Int      @default(0)
+  total_clicks      Int       @default(0)
   last_clicked_time DateTime?
-  createdAt         DateTime @default(now())
+  createdAt         DateTime  @default(now())
 }
